@@ -1,0 +1,10 @@
+[workspace]
+members = ["crates/include-idl", "crates/security-txt"]
+resolver = "2"
+
+[workspace.package]
+authors = ["Hedgehog Developers <developers@hedgehog.markets>"]
+edition = "2021"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/Hedgehog-Markets/solana-utils"
+rust-version = "1.75"
