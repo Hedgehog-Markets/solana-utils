@@ -1,5 +1,5 @@
 [workspace]
-members = ["crates/include-idl", "crates/security-txt", "crates/solana-utils"]
+members = ["crates/borsh-size", "crates/include-idl", "crates/security-txt", "crates/solana-utils"]
 resolver = "2"
 
 [workspace.package]

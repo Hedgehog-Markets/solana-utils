@@ -1,0 +1,21 @@
+[package]
+name = "borsh-size"
+version = "0.0.0"
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+publish = false
+
+[features]
+default = ["std", "solana-program"]
+
+alloc = []
+std = ["alloc"]
+
+[dependencies]
+borsh-size-macro = { version = "=0.0.0", path = "./macro" }
+
+hashbrown = { version = "0.14", default-features = false, optional = true }
+solana-program = { version = ">= 1.0, < 2.1", default-features = false, optional = true }
