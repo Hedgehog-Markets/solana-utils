@@ -16,6 +16,6 @@ pub fn pubkeys_eq(a: &Pubkey, b: &Pubkey) -> bool {
     #[cfg(not(target_os = "solana"))]
     {
         // For non-solana targets let the compiler optimize the equality check.
-        a == b
+        *a == *b
     }
 }
