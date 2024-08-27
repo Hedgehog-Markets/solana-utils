@@ -1,5 +1,5 @@
 [package]
-name = "solana-utils"
+name = "solana-utils-macro"
 version = "0.0.0"
 authors.workspace = true
 edition.workspace = true
@@ -8,7 +8,10 @@ repository.workspace = true
 rust-version.workspace = true
 publish = false
 
-[dependencies]
-solana-utils-macro = { version = "=0.0.0", path = "./macro" }
+[lib]
+proc-macro = true
 
-solana-program = { version = ">= 1.18, < 2.1", default-features = false }
+[dependencies]
+proc-macro2 = "1.0.86"
+syn = "2.0.72"
+quote = "1.0.36"
