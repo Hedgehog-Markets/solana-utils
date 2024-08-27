@@ -10,6 +10,7 @@ mod impls;
 mod utils;
 
 pub use borsh_size_macro::BorshSize;
+pub use utils::BorshSizeProperties;
 
 pub trait BorshSize {
     /// The minimum size in bytes when this type is borsh serialized.
@@ -22,11 +23,7 @@ pub trait BorshSize {
     /// Returns the size in bytes when this value is borsh serialized.
     #[inline(always)]
     fn borsh_size(&self) -> usize {
-        if <Self as crate::utils::BorshSizeProperties>::IS_FIXED_SIZE {
-            Self::MIN_SIZE
-        } else {
-            unimplemented_borsh_size()
-        }
+        if Self::IS_FIXED_SIZE { Self::MIN_SIZE } else { unimplemented_borsh_size() }
     }
 }
 

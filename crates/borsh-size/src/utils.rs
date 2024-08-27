@@ -1,13 +1,5 @@
 use crate::BorshSize;
 
-pub(crate) const fn min(a: usize, b: usize) -> usize {
-    if a < b { a } else { b }
-}
-
-pub(crate) const fn max(a: usize, b: usize) -> usize {
-    if a > b { a } else { b }
-}
-
 mod private {
     pub trait Sealed {}
 }
@@ -21,6 +13,14 @@ pub trait BorshSizeProperties: BorshSize + private::Sealed {
 
 impl<T> private::Sealed for T where T: ?Sized + BorshSize {}
 impl<T> BorshSizeProperties for T where T: ?Sized + BorshSize + private::Sealed {}
+
+pub(crate) const fn min(a: usize, b: usize) -> usize {
+    if a < b { a } else { b }
+}
+
+pub(crate) const fn max(a: usize, b: usize) -> usize {
+    if a > b { a } else { b }
+}
 
 #[inline]
 pub(crate) fn iter_size<T, I>(prefix: usize, len: usize, iter: I) -> usize
