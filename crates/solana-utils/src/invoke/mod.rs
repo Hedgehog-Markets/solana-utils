@@ -88,7 +88,7 @@ pub unsafe fn invoke_signed_unchecked(
 
         let result = unsafe {
             solana_program::syscalls::sol_invoke_signed_rust(
-                &instruction as *const _ as *const u8,
+                &stable_instruction as *const _ as *const u8,
                 account_infos as *const _ as *const u8,
                 account_infos.len() as u64,
                 signers_seeds as *const _ as *const u8,
