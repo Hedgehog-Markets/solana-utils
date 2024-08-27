@@ -78,8 +78,8 @@ pub fn create_or_allocate_account<'a>(
 pub fn close_account<'a>(account: &AccountInfo<'a>, sol_dst: &AccountInfo<'a>) -> ProgramResult {
     assert_is_solana!("close_account");
 
-    let mut src_lamports = account.lamports.borrow_mut();
-    let mut dst_lamports = sol_dst.lamports.borrow_mut();
+    let mut src_lamports = account.try_borrow_mut_lamports()?;
+    let mut dst_lamports = sol_dst.try_borrow_mut_lamports()?;
 
     let src_lamports = &mut **src_lamports;
     let dst_lamports = &mut **dst_lamports;
@@ -117,13 +117,13 @@ pub fn realloc_account_mut<'a>(
 ) -> Result<RefMut<'a, [u8]>, ProgramError> {
     assert_is_solana!("realloc_account");
 
-    let mut data = info.data.borrow_mut();
+    let mut data = info.try_borrow_mut_data()?;
 
     let old_len = data.len();
 
     // Return early if length hasn't changed.
     if new_len == old_len {
-        return Ok(RefMut::map(data, |data| &mut data[..new_len]));
+        return Ok(RefMut::map(data, |data| &mut data[..]));
     }
 
     // Return early if the length increase from the original serialized data
@@ -151,8 +151,8 @@ pub fn realloc_account_mut<'a>(
 pub fn transfer_lamports(src: &AccountInfo, dst: &AccountInfo, amount: u64) -> ProgramResult {
     assert_is_solana!("transfer_lamports");
 
-    let mut src_lamports = src.lamports.borrow_mut();
-    let mut dst_lamports = dst.lamports.borrow_mut();
+    let mut src_lamports = src.try_borrow_mut_lamports()?;
+    let mut dst_lamports = dst.try_borrow_mut_lamports()?;
 
     let src_lamports = &mut **src_lamports;
     let dst_lamports = &mut **dst_lamports;
