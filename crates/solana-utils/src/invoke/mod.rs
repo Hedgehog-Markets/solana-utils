@@ -82,13 +82,9 @@ pub unsafe fn invoke_signed_unchecked(
 ) -> ProgramResult {
     #[cfg(target_os = "solana")]
     {
-        use stable::{StableInstruction, StableVec};
+        use stable::StableInstruction;
 
-        let stable_instruction = StableInstruction {
-            accounts: StableVec::borrow(&instruction.accounts),
-            data: StableVec::borrow(&instruction.data),
-            program_id: instruction.program_id,
-        };
+        let stable_instruction = StableInstruction::borrow(&instruction);
 
         let result = unsafe {
             solana_program::syscalls::sol_invoke_signed_rust(
@@ -104,7 +100,7 @@ pub unsafe fn invoke_signed_unchecked(
             solana_program::entrypoint::SUCCESS => Ok(()),
             _ => Err(result.into()),
         }
-    };
+    }
 
     #[cfg(not(target_os = "solana"))]
     {

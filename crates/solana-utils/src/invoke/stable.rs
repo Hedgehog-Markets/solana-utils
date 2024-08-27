@@ -3,7 +3,7 @@
 use std::marker::PhantomData;
 use std::ptr::NonNull;
 
-use solana_program::instruction::AccountMeta;
+use solana_program::instruction::{AccountMeta, Instruction};
 use solana_program::pubkey::Pubkey;
 
 #[repr(C)]
@@ -19,6 +19,16 @@ pub(crate) struct StableVec<'a, T> {
     cap: usize,
     len: usize,
     _marker: PhantomData<&'a [T]>,
+}
+
+impl<'a> StableInstruction<'a> {
+    pub(crate) fn borrow(instruction: &'a Instruction) -> Self {
+        Self {
+            accounts: StableVec::borrow(&instruction.accounts),
+            data: StableVec::borrow(&instruction.data),
+            program_id: instruction.program_id,
+        }
+    }
 }
 
 impl<'a, T> StableVec<'a, T> {
