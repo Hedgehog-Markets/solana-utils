@@ -210,9 +210,13 @@ impl FieldsSizes for [Field<'_>] {
         });
 
         quote! {
-            let mut size = 0;
-            #(size += #borsh_sizes;)*
-            size
+            if <Self as ::borsh_size::BorshSizeProperties>::IS_FIXED_SIZE {
+                Self::MIN_SIZE
+            } else {
+                let mut size = 0;
+                #(size += #borsh_sizes;)*
+                size
+            }
         }
     }
 }
