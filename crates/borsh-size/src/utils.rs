@@ -5,6 +5,11 @@ mod private {
 }
 
 pub trait BorshSizeProperties: BorshSize + private::Sealed {
+    const FIXED_SIZE: usize = match Self::MAX_SIZE {
+        Some(max) if Self::MIN_SIZE == max => Self::MIN_SIZE,
+        _ => panic!("this type does not have a fixed size"),
+    };
+
     const IS_FIXED_SIZE: bool = match Self::MAX_SIZE {
         Some(max) => Self::MIN_SIZE == max,
         None => false,
