@@ -1,5 +1,8 @@
 #![cfg_attr(not(feature = "std"), no_std)]
 
+// Allow use of `#[derive(BorshSize)]` within this crate.
+extern crate self as borsh_size;
+
 #[cfg(all(feature = "alloc", not(feature = "std")))]
 extern crate alloc;
 
