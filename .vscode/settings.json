@@ -1,3 +1,5 @@
 {
-  "editor.rulers": [100]
+  "editor.rulers": [100],
+
+  "rust-analyzer.cargo.features": ["parse", "shrink", "solana-program", "std"]
 }
