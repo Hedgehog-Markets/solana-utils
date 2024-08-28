@@ -2,8 +2,6 @@
 
 use core::borrow::Borrow;
 
-use alloc::borrow::ToOwned;
-
 use crate::BorshSize;
 
 #[cfg(feature = "std")]
@@ -25,7 +23,7 @@ deref_impl! { [] alloc::string::String => str }
 
 impl<T> BorshSize for alloc::borrow::Cow<'_, T>
 where
-    T: ToOwned + BorshSize,
+    T: alloc::borrow::ToOwned + BorshSize,
 {
     const MIN_SIZE: usize = T::MIN_SIZE;
     const MAX_SIZE: Option<usize> = T::MAX_SIZE;
