@@ -94,7 +94,7 @@ macro_rules! security_txt {
                 input = [{ $($field)* }]
             }
 
-            #[allow(dead_code)]
+            #[allow(dead_code, non_upper_case_globals)]
             #[no_mangle]
             #[cfg_attr(target_os = "solana", link_section = ".security.txt")]
             static security_txt: &str = concat! {

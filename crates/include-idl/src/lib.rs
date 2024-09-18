@@ -22,7 +22,7 @@ macro_rules! include_idl {
     ($file:expr $(,)?) => {
         #[allow(unexpected_cfgs)]
         const _: () = {
-            #[allow(dead_code)]
+            #[allow(dead_code, non_upper_case_globals)]
             #[no_mangle]
             #[cfg_attr(target_os = "solana", link_section = ".solana.idl")]
             static solana_idl: &[u8] = include_bytes!($file);
@@ -45,7 +45,7 @@ macro_rules! include_kinobi_idl {
     ($file:expr $(,)?) => {
         #[allow(unexpected_cfgs)]
         const _: () = {
-            #[allow(dead_code)]
+            #[allow(dead_code, non_upper_case_globals)]
             #[no_mangle]
             #[cfg_attr(target_os = "solana", link_section = ".kinobi.idl")]
             static kinobi_idl: &[u8] = include_bytes!($file);
