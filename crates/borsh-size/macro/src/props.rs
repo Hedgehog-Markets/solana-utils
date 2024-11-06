@@ -29,7 +29,7 @@ impl<'a> Variant<'a> {
     }
 }
 
-impl<'a> Field<'a> {
+impl Field<'_> {
     pub fn span(&self) -> Span {
         let vis_span = self.original.vis.span();
         let ty_span = self.ty.span();

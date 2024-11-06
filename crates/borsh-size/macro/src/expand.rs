@@ -3,8 +3,8 @@ use proc_macro2_diagnostics::Diagnostic;
 use quote::{quote, quote_spanned};
 use syn::DeriveInput;
 
-use crate::ast::{Enum, Field, Input, Struct};
 use crate::Result;
+use crate::ast::{Enum, Field, Input, Struct};
 
 pub fn derive(input: &DeriveInput) -> TokenStream {
     match try_expand(input) {
